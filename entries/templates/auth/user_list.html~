@@ -1,0 +1,15 @@
+    <h1>Users</h1>
+
+    {% if user_list %}
+    <ul>
+      <li>
+      {% for user in user_list %}
+              {{ user.username }}
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>There are no users.</p>
+    {% endif %}
+
