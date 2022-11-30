@@ -11,7 +11,7 @@ class Access_to_user_list(TestCase):
         superuser = User.objects.create_superuser('admin', 'x@x.com','superuser')
         self.client.login(username='admin', password='superuser')
         response = self.client.get('/entries/users/') 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, "Status code should be 200")
 
     def test_non_authorized_access(self):
         """
@@ -21,5 +21,5 @@ class Access_to_user_list(TestCase):
         normaluser = User.objects.create_user('normal','y@y.com', 'normal')
         self.client.login(username='normal', password='normal')
         response = self.client.get('/entries/users/') 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 403, "Status code should be 403")
         
