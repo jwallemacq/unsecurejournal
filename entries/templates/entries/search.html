@@ -1,0 +1,9 @@
+{% if search_list %}
+    <ul>
+    {% for entry in search_list %}
+        <li>{{ entry }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No matching journal entries found.</p>
+{% endif %}

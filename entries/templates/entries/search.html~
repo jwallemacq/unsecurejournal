@@ -1,0 +1,9 @@
+{% if entries_list %}
+    <ul>
+    {% for entry in entries_list %}
+        <li>{{ entry.journalentry_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No journal entries are available.</p>
+{% endif %}

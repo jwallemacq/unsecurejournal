@@ -4,6 +4,7 @@ from django.views import generic
 from .models import JournalEntry
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import connection
 
 class UserListView(generic.ListView):
     template_name = 'auth/user_list.html'
@@ -31,3 +32,14 @@ class IndexView(LoginRequiredMixin,generic.ListView):
         else:
             return JournalEntry.objects.filter(user=self.request.user)
 
+class SearchEntriesView(LoginRequiredMixin, generic.ListView):
+    template_name = 'entries/search.html'
+    context_object_name = 'search_list'
+    def get_queryset(self):
+        txt = self.request.GET['search_term']
+        # see https://stackoverflow.com/questions/3500859/django-request-get
+        print(txt)
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT journalentry_text FROM entries_journalentry WHERE journalentry_text LIKE %s", [txt])
+            resp = cursor.fetchall()
+        return resp
