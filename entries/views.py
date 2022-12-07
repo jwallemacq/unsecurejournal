@@ -39,7 +39,10 @@ class SearchEntriesView(LoginRequiredMixin, generic.ListView):
         txt = self.request.GET['search_term']
         # see https://stackoverflow.com/questions/3500859/django-request-get
         print(txt)
+        print(self.request.user.id)
         with connection.cursor() as cursor:
-            cursor.execute("SELECT journalentry_text FROM entries_journalentry WHERE journalentry_text LIKE %s", [txt])
+            print("SELECT journalentry_text FROM entries_journalentry WHERE user_id = '%s' AND journalentry_text LIKE '%%%s%%'" % (self.request.user.id, txt))
+
+            cursor.execute("SELECT journalentry_text FROM entries_journalentry WHERE user_id = '%s' AND journalentry_text LIKE '%%%s%%'" % (self.request.user.id, txt))
             resp = cursor.fetchall()
         return resp
