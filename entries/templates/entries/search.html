@@ -1,3 +1,10 @@
+<h1>Your Journal</h1>
+{% if user.is_authenticated %}
+   <p>Good day, {{ user.get_username }} !!</p>
+{% endif %}
+
+<h2>Your journal entries matching your request</h2>
+
 {% if search_list %}
     <ul>
     {% for entry in search_list %}
@@ -7,3 +14,9 @@
 {% else %}
     <p>No matching journal entries found.</p>
 {% endif %}
+
+<a href ="/entries">Back to your journal</a>  
+<a href ="/accounts/logout/">Logout</a>  
+
+
+

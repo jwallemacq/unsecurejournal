@@ -1,9 +1,25 @@
+<h1>Your Journal</h1>
+{% if user.is_authenticated %}
+   <p>Good day, {{ user.get_username }} !!</p>
+{% endif %}
+
+<h2>Your journal entries</h2>
+
 {% if entries_list %}
     <ul>
     {% for entry in entries_list %}
-        <li>{{ entry.journalentry_text }}</a></li>
+        <li>{{ entry.journalentry_text }}, posted on {{ entry.entry_date }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
     <p>No journal entries are available.</p>
 {% endif %}
+
+<h2>Searching your entries</h2>
+
+<form action="/entries/search/" method="get">
+    <label for="search_term">Your search term: </label>
+    <input id="search_term" type="text" name="search_term" value="">
+    <input type="submit" value="OK">
+</form>    
+<a href ="/accounts/logout/">Logout</a>  
