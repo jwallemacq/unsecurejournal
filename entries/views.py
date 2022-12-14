@@ -51,6 +51,8 @@ class SearchEntriesView(LoginRequiredMixin, generic.ListView):
         with connection.cursor() as cursor:
             print("SELECT journalentry_text FROM entries_journalentry WHERE user_id = '%s' AND journalentry_text LIKE '%%%s%%'" % (self.request.user.id, txt))
 
-            cursor.execute("SELECT journalentry_text FROM entries_journalentry WHERE user_id = '%s' AND journalentry_text LIKE '%%%s%%'" % (self.request.user.id, txt))
+            cursor.execute("SELECT journalentry_text, entry_date FROM entries_journalentry WHERE user_id = '%s' AND journalentry_text LIKE '%%%s%%'" % (self.request.user.id, txt))
             resp = cursor.fetchall()
-        return resp
+            resp2 = [x[0] + " posted on " + x[1].strftime('%A %d-%m-%Y, %H:%M:%S') for x in resp]
+            print(resp2)
+        return resp2
