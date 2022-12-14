@@ -15,6 +15,15 @@
     <p>No journal entries are available.</p>
 {% endif %}
 
+<h2>Adding a journal entry</h2>
+    
+<form action="/entries/new/" method="post">
+{% csrf_token %}
+    <label for="entry_text">Your text: </label>
+    <input id="entry_text" type="text" name="entry_text" value="">
+    <input type="submit" value="OK">
+</form>
+    
 <h2>Searching your entries</h2>
 
 <form action="/entries/search/" method="get">

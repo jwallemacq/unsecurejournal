@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import JournalEntry
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import connection
+from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 class UserListView(generic.ListView):
     template_name = 'auth/user_list.html'
@@ -31,6 +33,12 @@ class IndexView(LoginRequiredMixin,generic.ListView):
             return JournalEntry.objects.all()
         else:
             return JournalEntry.objects.filter(user=self.request.user)
+
+@login_required
+def new(request):
+    je = JournalEntry(user=request.user,journalentry_text=request.POST['entry_text'], entry_date=datetime.now())
+    je.save()
+    return redirect("/entries/")
 
 class SearchEntriesView(LoginRequiredMixin, generic.ListView):
     template_name = 'entries/search.html'
