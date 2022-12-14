@@ -31,4 +31,8 @@
     <input id="search_term" type="text" name="search_term" value="">
     <input type="submit" value="OK">
 </form>    
+{% if user.is_superuser %}
+<a href ="/entries/users/">List of users</a>
+{% endif %}
+
 <a href ="/accounts/logout/">Logout</a>  

@@ -1,13 +1,13 @@
 <h1>Users</h1>
 {% if user.is_authenticated %}
-   <li>Logged user: {{ user.get_username }}</li>
+   <li>Good day, {{ user.get_username }} !!</li>
 {% endif %}
 <h2>List of users</h2>
 
     {% if user_list %}
     <p><ul>
-      <li>
       {% for user in user_list %}
+      <li>
               {{ user.username }}
       </li><br/>
       {% endfor %}
@@ -17,3 +17,5 @@
       <p>There are no users.</p>
     {% endif %}
 
+<a href ="/entries">Back to your journal</a>  
+<a href ="/accounts/logout/">Logout</a>  
