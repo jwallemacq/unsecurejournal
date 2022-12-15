@@ -29,10 +29,7 @@ class IndexView(LoginRequiredMixin,generic.ListView):
     context_object_name = 'entries_list'
 
     def get_queryset(self):
-        if self.request.user.is_superuser:
-            return JournalEntry.objects.all()
-        else:
-            return JournalEntry.objects.filter(user=self.request.user)
+        return JournalEntry.objects.filter(user=self.request.user)
 
 @login_required
 def new(request):
