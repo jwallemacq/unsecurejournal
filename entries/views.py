@@ -55,4 +55,10 @@ class SearchEntriesView(LoginRequiredMixin, generic.ListView):
             resp = cursor.fetchall()
             resp2 = [x[0] + " posted on " + x[1].strftime('%A %d-%m-%Y, %H:%M:%S') for x in resp]
             print(resp2)
-        return resp2
+            return resp2
+#            This is an unsafe way to query the database, open to SQL injection
+#            Use rather the following: 
+#            resp3 = JournalEntry.objects.filter(user=self.request.user, journalentry_text__contains=txt)
+#            resp4 = [x.journalentry_text + " posted on " + x.entry_date.strftime('%A %d-%m-%Y, %H:%M:%S') for x in resp3]
+#            print(resp4)
+#            return resp4
